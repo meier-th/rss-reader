@@ -1,0 +1,25 @@
+<section id="content">
+<mat-form-field appearance="fill">
+    <mat-label>Select RSS feed</mat-label>
+    <mat-select [(ngModel)]="selectedFeed" (selectionChange)="changeFeed()">
+      <mat-option *ngFor="let feed of feeds" [value]="feed">
+        {{feed.feed}}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <button mat-button (click)="refresh()">Refresh</button>
+  
+<div infiniteScroll [infiniteScrollThrottle]="50" (scrolled)="onScroll()" id ="rss-wrapper">
+    <div *ngFor="let entry of entries" class="rss-wrapper">
+        <h2>{{entry.name}}</h2>
+        <p class="article-text" [innerHtml]="entry.text">
+        </p>
+        <div id="entry-footer">
+            <span class="footer-elem" id="author">Author: {{entry.author}}</span>
+            <span class="footer-elem" id="time">{{entry.published}}</span>
+            <span class="footer-elem" id="link"><a href="{{entry.link}}">Read more</a></span>
+            <span class="footer-elem" id="tags">Tags: {{entry.tags}}</span>
+        </div>
+    </div>
+</div>
+</section>
